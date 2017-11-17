@@ -5,7 +5,12 @@ const ejs = require('ejs');
 const pageRouter = require('./src/routes/pageRouter.js');
 const apiRouter = require('./src/routes/apiRouter.js');
 
+const connectToDb = require('./src/database/dbConnect.js');
+const dbConfigObj = require('./knexfile.js');
+
 const app = express();
+const appDb = connectToDb(dbConfigObj.development);
+app.locals.db = appDb;
 
 // CONFIGURE ejs
 app.engine('ejs', ejs.renderFile);
